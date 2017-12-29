@@ -23,4 +23,3 @@ function paramsStrSort(paramsStr) {
 ```
 kAppKey，kAppSecret为常量，一般由后端定义好！签名加密方法依托[MD5](https://www.npmjs.com/package/blueimp-md5)!
 
-[Demo预览](https://chenjun1127.github.io/js-sign/index.html)
