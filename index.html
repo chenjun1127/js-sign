@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>JS生成接口参数签名</title>
+    <script src="http://apps.bdimg.com/libs/jquery/1.10.1/jquery.min.js"></script>
+    <script type="text/javascript" src="sign.js"></script>
+    <script type="text/javascript" src="md5.min.js"></script>
+    <style type="text/css">
+        *{padding:0;margin:0}
+        button{padding:10px;font-size:14px;margin:10px;margin-right: 0}
+        #text{background:rgb(0,0,0);padding:10px;color:rgb(255,255,255);border-radius:10px;margin:10px;line-height:24px;display: none;}
+    </style>
+</head>
+
+<body>
+    <button onclick="getData_1()">GET方法，data为String</button>
+    <button onclick="getData_2()">GET方法，data为Object</button>
+    <button onclick="getData_3()">POST方法，application/json</button>
+    <button onclick="getData_4()">POST方法，application/x-www-form-urlencoded</button>
+    <div id="text">
+        <p></p>
+        <p></p>
+        <p></p>
+    </div>
+    <script type="text/javascript">
+    var pageSize = 10,
+        pageNo = 1,
+        type = 1,
+        xid = "0dc8281b891040b4bc9415b28a6e0b3c00660602";
+
+    const kAppKey = '0easy888';
+    const kAppSecret = 'db426a9829e4b49a0dcac7b4162da6b6';
+
+    function getData_1() {
+        var params = "xid=" + xid + "&type=" + type + "&pageSize=" + pageSize + "&pageNo=" + pageNo;
+        var sign = getSign(params, kAppKey, kAppSecret);
+        $.ajax({
+            type: 'GET',
+            url: 'data.json?' + params + '&sign=' + sign,
+            dataType: 'json',
+            success: function(res) {
+                insertHtml(["生成签名为：" + sign, "请求参数为：" + params + "&sign=" + sign, "返回数据为：" + JSON.stringify(res)]);
+            }
+        })
+    }
+
+    function getData_2() {
+        var paramsObj = { xid: xid, pageSize: pageSize, type: type, pageNo: pageNo };
+        var sign = getSign(paramsObj, kAppKey, kAppSecret);
+        paramsObj.sign = sign;
+        $.ajax({
+            type: 'GET',
+            url: 'data.json?',
+            data: paramsObj,
+            dataType: 'json',
+            success: function(res) {
+                insertHtml(["生成签名为：" + sign, "请求参数为：" + JSON.stringify(paramsObj), "返回数据为：" + JSON.stringify(res)]);
+            }
+        })
+    }
+
+    function getData_3() {
+        var paramsObj = { xid: xid, pageSize: pageSize, type: type, pageNo: pageNo };
+        var sign = getSign(paramsObj, kAppKey, kAppSecret);
+        paramsObj.sign = sign;
+        $.ajax({
+            type: 'POST',
+            url: 'data.json?',
+            contentType: "application/json;charset=utf-8",
+            data: JSON.stringify(paramsObj),
+            dataType: 'json',
+            success: function(res) {
+                insertHtml(["生成签名为：" + sign, "请求参数为：" + JSON.stringify(paramsObj), "返回数据为：" + JSON.stringify(res)]);
+            }
+        })
+    }
+
+    function getData_4() {
+        var params = "xid=" + xid + "&type=" + type + "&pageSize=" + pageSize + "&pageNo=" + pageNo;
+        var sign = getSign(params, kAppKey, kAppSecret);
+        $.ajax({
+            type: 'POST',
+            url: 'data.json?',
+            contentType: "application/x-www-form-urlencoded;charset=utf-8",
+            data: params + '&sign=' + sign,
+            dataType: 'json',
+            success: function(res) {
+                insertHtml(["生成签名为：" + sign, "请求参数为：" + params + "&sign=" + sign, "返回数据为：" + JSON.stringify(res)]);
+            }
+        })
+    }
+
+    function insertHtml(contentArray) {
+        for (var i = 0; i < contentArray.length; i++) {
+            $("#text p").eq(i).html(contentArray[i]);
+        }
+        $("#text").show(); 
+    }
+    </script>
+</body>
+
+</html>
