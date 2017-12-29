@@ -21,4 +21,4 @@ function paramsStrSort(paramsStr) {
     return md5(newUrl);
 }
 ```
-kAppKey，kAppSecret为常量，一般由后端定义好！签名加密方法依托[MD5](http://www.bootcdn.cn/blueimp-md5/)!
+kAppKey，kAppSecret为常量，一般由后端定义好！签名加密方法依托[MD5](https://www.npmjs.com/package/blueimp-md5)!
