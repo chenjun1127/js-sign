@@ -21,5 +21,18 @@ function paramsStrSort(paramsStr) {
     return md5(newUrl);
 }
 ```
+
+
+调用：
+```javascript
+var params = "xid=" + xid + "&type=" + type + "&pageSize=" + pageSize + "&pageNo=" + pageNo;
+var sign = getSign(params, kAppKey, kAppSecret);
+```
+或:
+```javascript
+var paramsObj = { xid: xid, pageSize: pageSize, type: type, pageNo: pageNo };
+var sign = getSign(paramsObj, kAppKey, kAppSecret);
+```
+
 kAppKey，kAppSecret为常量，一般由后端定义好！签名加密方法依托[MD5](https://www.npmjs.com/package/blueimp-md5)!
 
