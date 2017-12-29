@@ -1,6 +1,6 @@
 ## js生成接口请求参数签名加密
 
-定义规则：将所有参数字段按首字母排序， 拼接成key1 = value1 & key2 = value2的格式，再在末尾拼接上key = appSecret， 再做MD5加密生成sign
+定义规则：将所有参数字段按首字母排序， 拼接成key1 = value1 & key2 = value2的格式，再在末尾拼接上key = appSecret， 再做MD5加密生成sign，方法如下：
 ```javascript
 function getSign(params, kAppKey, kAppSecret) {
     if (typeof params == "string") {
@@ -21,4 +21,4 @@ function paramsStrSort(paramsStr) {
     return md5(newUrl);
 }
 ```
-kAppKey,kAppSecret为常量，一般由后端定义好！签名加密方法依托MD5，
+kAppKey，kAppSecret为常量，一般由后端定义好！签名加密方法依托[MD5](http://www.bootcdn.cn/blueimp-md5/)!
