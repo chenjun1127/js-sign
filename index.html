@@ -52,7 +52,7 @@
         paramsObj.sign = sign;
         $.ajax({
             type: 'GET',
-            url: 'data.json?',
+            url: 'data.json',
             data: paramsObj,
             dataType: 'json',
             success: function(res) {
@@ -67,7 +67,7 @@
         paramsObj.sign = sign;
         $.ajax({
             type: 'POST',
-            url: 'data.json?',
+            url: 'data.json',
             contentType: "application/json;charset=utf-8",
             data: JSON.stringify(paramsObj),
             dataType: 'json',
@@ -82,7 +82,7 @@
         var sign = getSign(params, kAppKey, kAppSecret);
         $.ajax({
             type: 'POST',
-            url: 'data.json?',
+            url: 'data.json',
             contentType: "application/x-www-form-urlencoded;charset=utf-8",
             data: params + '&sign=' + sign,
             dataType: 'json',
