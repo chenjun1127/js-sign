@@ -2,22 +2,20 @@
 
 定义规则：将所有参数字段按首字母排序， 拼接成key1 = value1 & key2 = value2的格式，再在末尾拼接上key = appSecret， 再做MD5加密生成sign，方法如下：
 ```javascript
-function getSign(params, kAppKey, kAppSecret) {
+export function getSign(params, kAppKey, kAppSecret) {
+    let content;
     if (typeof params == "string") {
-        return paramsStrSort(params);
+        content = params
     } else if (typeof params == "object") {
         var arr = [];
         for (var i in params) {
-            arr.push((i + "=" + params[i]));
+            arr.push(i + "=" + params[i]);
         }
-        return paramsStrSort(arr.join(("&")));
+        content = arr.join("&")
     }
-}
-
-function paramsStrSort(paramsStr) {
-    var url = paramsStr + "&appKey=" + kAppKey;
+    var url = content + "&appKey=" + kAppKey;
     var urlStr = url.split("&").sort().join("&");
-    var newUrl = urlStr + '&key=' + kAppSecret;
+    var newUrl = urlStr + "&key=" + kAppSecret;
     return md5(newUrl);
 }
 ```
